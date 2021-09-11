@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="fnote is a note app" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script type="module" src="js/main.js"></script>
+    <title>FNote</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <figure class="note">
+          <form class="note-form">
+            <div class="note-form-head">
+              <input
+                class="note-title-input"
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Note title"
+              />
+
+              <button class="note-expand-btn" type="button">
+                <ion-icon
+                  class="note-expand-icon"
+                  name="chevron-down-outline"
+                ></ion-icon>
+              </button>
+
+              <input
+                class="note-title-input"
+                id="tags"
+                name="tags"
+                type="text"
+                placeholder="Tags seperated with space"
+              />
+            </div>
+            <div class="note-form-body">
+              <textarea
+                class="note-body"
+                name="notebody"
+                id="notebody"
+                rows="10"
+                placeholder="Note body"
+              ></textarea>
+            </div>
+
+            <div class="note-form-btns">
+              <button class="note-form-btn btn-remove" type="button">
+                Remove
+              </button>
+              <button class="note-form-btn btn-save" type="button">Save</button>
+            </div>
+          </form>
+        </figure>
+      </div>
+    </main>
+  </body>
+</html>
