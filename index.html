@@ -15,22 +15,24 @@
 
     <script
       type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.esm.js"
     ></script>
     <script
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      nomodule=""
+      src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"
     ></script>
 
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" type="text/css" />
 
-    <script type="module" src="js/main.js"></script>
+    <script defer type="module" src="./js/controller.js"></script>
     <title>FNote</title>
   </head>
   <body>
     <main>
       <div class="container">
-        <figure class="note">
+        <button class="addnote-btn" type="button">Add a note</button>
+
+        <figure class="note add-note add-note-active">
           <form class="note-form">
             <div class="note-form-head">
               <input
@@ -39,12 +41,13 @@
                 name="title"
                 type="text"
                 placeholder="Note title"
+                required
               />
 
-              <button class="note-expand-btn" type="button">
+              <button class="note-close-btn" type="button">
                 <ion-icon
                   class="note-expand-icon"
-                  name="chevron-down-outline"
+                  name="close-outline"
                 ></ion-icon>
               </button>
 
@@ -54,26 +57,71 @@
                 name="tags"
                 type="text"
                 placeholder="Tags seperated with space"
+                required
               />
             </div>
             <div class="note-form-body">
               <textarea
-                class="note-body"
+                class="note-body-text"
                 name="notebody"
                 id="notebody"
                 rows="10"
                 placeholder="Note body"
+                required
               ></textarea>
-            </div>
 
-            <div class="note-form-btns">
-              <button class="note-form-btn btn-remove" type="button">
-                Remove
-              </button>
-              <button class="note-form-btn btn-save" type="button">Save</button>
+              <div class="note-form-btns">
+                <button class="note-form-btn btn-save" type="submit">
+                  Save
+                </button>
+              </div>
             </div>
           </form>
         </figure>
+
+        <!-- <figure class="note" id="bdy">
+          <div class="note-content">
+            <div class="note-head">
+              <p class="note-title">Lorem ipsum dolor sit amet consectetur.</p>
+
+              <button class="note-expand-btn" id="btn" type="button">
+                <ion-icon
+                  class="note-expand-icon"
+                  name="chevron-down-outline"
+                ></ion-icon>
+              </button>
+
+              <div class="note-tags">
+                <span class="note-tag">Tag 1</span>
+                <span class="note-tag">Tag 2</span>
+                <span class="note-tag">Tag 3</span>
+                <span class="note-tag">Tag 4</span>
+              </div>
+            </div>
+
+            <div class="note-body">
+              <textarea
+                class="note-body-text"
+                name="notebody"
+                id="notebody"
+                rows="10"
+                placeholder="Note body"
+                disabled
+              >
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit quam qui accusantium vel, maiores animi, nam necessitatibus rem obcaecati doloremque consequatur, aliquid debitis voluptas blanditiis in corrupti eligendi nemo a? Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus animi quae quis beatae in. Quas similique asperiores impedit est accusamus doloremque, minus magnam ullam sequi saepe numquam hic, harum laudantium.
+            </textarea
+              >
+              <div class="note-form-btns">
+                <button class="note-form-btn btn-remove" type="button">
+                  Remove
+                </button>
+                <button class="note-form-btn btn-edit" type="button">
+                  Edit
+                </button>
+              </div>
+            </div>
+          </div>
+        </figure> -->
       </div>
     </main>
   </body>
