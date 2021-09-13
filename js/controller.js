@@ -2,6 +2,8 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
 import * as model from './model';
+import { HOLD_TO_REMOVE_TIME } from './config';
+import { ClickAndHold } from './helpers';
 
 import AddNoteView from './views/AddNoteView';
 import AddNoteBtnView from './views/AddNoteBtnView';
@@ -17,6 +19,17 @@ const controlAddNoteBtn = function () {
     AddNoteView.render();
     model.state.noteFormActive = true;
   }
+};
+
+const controlNoteRemoveBtn = function (e) {
+  const noteEl = e.target.closest('.note');
+  const id = noteEl.dataset.id;
+  noteEl.classList.remove('note-active');
+
+  setTimeout(() => noteEl.remove(), 250);
+  const index = model.state.notes.findIndex((n) => n.id === +id);
+  model.state.notes.splice(index, 1);
+  model.saveState();
 };
 
 const controlFormSaveBtn = function (form, e) {
@@ -41,6 +54,11 @@ const controlFormSaveBtn = function (form, e) {
 
     NoteView.render(note);
 
+    const btnRemove = document
+      .querySelector('.note')
+      .querySelector('.btn-remove');
+    new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
+
     AddNoteView.remove();
     model.state.noteFormActive = false;
   }
@@ -56,7 +74,7 @@ const controlNoteEditBtn = function (noteEl) {
 
 const controlNoteSaveBtn = function (form, e) {
   const formData = new FormData(form);
-  const noteEl = form.closest('.note');
+  let noteEl = form.closest('.note');
   model.state.currentId = +noteEl.dataset.id;
 
   const title = formData.get('title').trim();
@@ -71,7 +89,9 @@ const controlNoteSaveBtn = function (form, e) {
     note.tags = tags === '' ? [] : tags.split(' ');
     note.body = body;
 
-    NoteView.edit(noteEl, note, true);
+    noteEl = NoteView.edit(noteEl, note, true);
+    const btnRemove = noteEl.querySelector('.btn-remove');
+    new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
   }
 
   model.saveState();
@@ -80,7 +100,10 @@ const controlNoteSaveBtn = function (form, e) {
 const controlEditNoteClose = function (noteEl) {
   const id = +noteEl.dataset.id;
   const note = model.state.notes.find((n) => n.id === id);
-  NoteView.edit(noteEl, note, true);
+
+  noteEl = NoteView.edit(noteEl, note, true);
+  const btnRemove = noteEl.querySelector('.btn-remove');
+  new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
 };
 
 const controlNoteExpandBtn = function (note) {
@@ -93,6 +116,11 @@ const load = function () {
   model.state.currentId = undefined;
 
   model.state.notes.forEach((note) => NoteView.render(note));
+
+  document.querySelectorAll('.note').forEach((note) => {
+    const btnRemove = note.querySelector('.btn-remove');
+    new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
+  });
 };
 
 (function () {

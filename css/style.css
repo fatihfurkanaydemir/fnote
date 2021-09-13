@@ -35,7 +35,7 @@ body {
 }
 
 .container {
-  max-width: 120rem;
+  max-width: 150rem;
   margin: 0 auto;
   box-shadow: 0 2rem 6rem 0.5rem rgb(97 85 81 / 20%);
   border-radius: 9px;
@@ -50,6 +50,11 @@ body {
   gap: 2.4rem;
 }
 
+.addnotebtn-container {
+  display: flex;
+  justify-content: center;
+}
+
 .addnote-btn {
   border: none;
   font-size: 2.8rem;
@@ -59,7 +64,7 @@ body {
   padding: 1rem 2rem;
   border-radius: 100px;
   cursor: pointer;
-  width: 100%;
+  width: 80%;
 
   transition: all 0.3s;
 }
@@ -71,6 +76,7 @@ body {
 .notes-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
 }
 
@@ -79,6 +85,7 @@ body {
   border-radius: 9px;
   font-size: 2rem;
   padding: 2rem 2.4rem;
+  width: 80%;
 }
 
 .note-form {
@@ -221,6 +228,13 @@ body {
 }
 
 .btn-remove {
+  user-select: none; /* supported by Chrome and Opera */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+
+  transition: background-color 1s;
   border-color: #ff6b6b;
 }
 

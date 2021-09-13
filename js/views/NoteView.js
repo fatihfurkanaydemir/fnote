@@ -137,6 +137,8 @@ ${note.body}</textarea>
               </div>
             </div>
     `;
+
+    return noteEl;
   }
 
   _generateMarkup() {
