@@ -5,7 +5,7 @@ class AddNoteView extends View {
 
   addCloseHandler(handler) {
     this._parentEl.addEventListener('click', function (e) {
-      const closeBtn = e.target.closest('.note-close-btn');
+      const closeBtn = e.target.closest('.note-close-btn--add');
 
       if (!closeBtn) return;
 
@@ -21,7 +21,7 @@ class AddNoteView extends View {
   }
 
   _saveListener(handler, e) {
-    const saveBtn = e.target.closest('.btn-save');
+    const saveBtn = e.target.closest('.btn-save--add');
 
     if (!saveBtn) return;
 
@@ -45,7 +45,7 @@ class AddNoteView extends View {
           required
         />
 
-        <button class="note-close-btn" type="button">
+        <button class="note-close-btn note-close-btn--add" type="button">
           <ion-icon
             class="note-expand-icon"
             name="close-outline"
@@ -58,7 +58,6 @@ class AddNoteView extends View {
           name="tags"
           type="text"
           placeholder="Tags seperated with space"
-          required
         />
       </div>
       <div class="note-form-body">
@@ -72,7 +71,7 @@ class AddNoteView extends View {
         ></textarea>
 
         <div class="note-form-btns">
-          <button class="note-form-btn btn-save" type="submit">
+          <button class="note-form-btn btn-save btn-save--add" type="submit">
             Save
           </button>
         </div>
