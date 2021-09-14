@@ -13,5 +13,3 @@ Website link: [https://fatihfurkanaydemir-fnote.netlify.app](https://fatihfurkan
 ![](https://github.com/fatihfurkanaydemir/fnote/blob/master/page2.png)
 
 ![](https://github.com/fatihfurkanaydemir/fnote/blob/master/page3.png)
-
-![](https://github.com/fatihfurkanaydemir/fnote/blob/master/page4.png)
