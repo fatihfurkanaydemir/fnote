@@ -72,7 +72,7 @@ class NoteView extends View {
             id="tags"
             name="tags"
             type="text"
-            placeholder="Tags seperated with space"
+            placeholder="(optional) Tags seperated with space"
             value="${note.tags.join(' ')}"
           />
         </div>

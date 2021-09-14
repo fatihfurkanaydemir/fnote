@@ -1,0 +1,33 @@
+/* < 1008px */
+@media only screen and (max-width: 63em) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .search-form {
+    width: 100%;
+  }
+
+  .addnote-btn {
+    width: 100%;
+  }
+
+  .note {
+    width: 100%;
+  }
+}
+
+/* <560px */
+@media only screen and (max-width: 35em) {
+  html {
+    font-size: 50%;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .container {
+    padding: 3.6rem 2rem;
+  }
+}

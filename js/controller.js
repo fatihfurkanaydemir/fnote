@@ -5,19 +5,72 @@ import * as model from './model';
 import { HOLD_TO_REMOVE_TIME } from './config';
 import { ClickAndHold } from './helpers';
 
+import SearchView from './views/SearchView';
 import AddNoteView from './views/AddNoteView';
 import AddNoteBtnView from './views/AddNoteBtnView';
 import NoteView from './views/NoteView';
 
+const load = function (notes = null) {
+  if (notes) {
+    clear();
+    notes.forEach((note) => NoteView.render(note));
+
+    document.querySelectorAll('.note').forEach((note) => {
+      const btnRemove = note.querySelector('.btn-remove');
+      new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
+    });
+  } else {
+    model.loadState();
+    model.state.noteFormActive = false;
+    model.state.currentId = undefined;
+
+    if (model.state.notes.length > 0) clear();
+
+    model.state.notes.forEach((note) => NoteView.render(note));
+
+    document.querySelectorAll('.note').forEach((note) => {
+      const btnRemove = note.querySelector('.btn-remove');
+      new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
+    });
+  }
+};
+
+const renderMessage = function (message) {
+  const container = document.querySelector('.notes-container');
+
+  const markup = `<p class="message">${message}</p>`;
+
+  container.insertAdjacentHTML('afterbegin', markup);
+};
+
+const clear = function () {
+  document.querySelector('.notes-container').innerHTML = '';
+  document.querySelector('.search-input').value = '';
+};
+
+const controlClear = function () {
+  clear();
+  load();
+
+  if (model.state.notes.length === 0)
+    renderMessage('No notes yet. Start by adding a note.');
+};
+
 const controlAddNoteClose = function () {
   AddNoteView.remove();
   model.state.noteFormActive = false;
+
+  if (model.state.notes.length === 0)
+    renderMessage('No notes yet. Start by adding a note.');
 };
 
 const controlAddNoteBtn = function () {
   if (!model.state.noteFormActive) {
     AddNoteView.render();
     model.state.noteFormActive = true;
+
+    const msg = document.querySelector('.message');
+    if (msg) msg.remove();
   }
 };
 
@@ -30,6 +83,9 @@ const controlNoteRemoveBtn = function (e) {
   const index = model.state.notes.findIndex((n) => n.id === +id);
   model.state.notes.splice(index, 1);
   model.saveState();
+
+  if (model.state.notes.length === 0)
+    renderMessage('No notes yet. Start by adding a note.');
 };
 
 const controlFormSaveBtn = function (form, e) {
@@ -110,23 +166,42 @@ const controlNoteExpandBtn = function (note) {
   note.classList.toggle('note-active');
 };
 
-const load = function () {
-  model.loadState();
-  model.state.noteFormActive = false;
-  model.state.currentId = undefined;
+const controlSearchBtn = function (form, e) {
+  const formData = new FormData(form);
 
-  model.state.notes.forEach((note) => NoteView.render(note));
+  const text = formData.get('search').trim();
 
-  document.querySelectorAll('.note').forEach((note) => {
-    const btnRemove = note.querySelector('.btn-remove');
-    new ClickAndHold(btnRemove, controlNoteRemoveBtn, HOLD_TO_REMOVE_TIME);
-  });
+  if (text) {
+    e.preventDefault();
+    const tags = text.split(' ');
+
+    const found = model.state.notes.filter((note) => {
+      let match = false;
+      tags.forEach((tag) => {
+        if (note.tags.includes(tag)) {
+          match = true;
+          clear;
+          return;
+        }
+      });
+
+      if (match) return note;
+    });
+
+    load(found);
+
+    if (found.length === 0) renderMessage('No notes found');
+  }
 };
 
 (function () {
-  load();
+  SearchView.render();
+  SearchView.addSearchHandler(controlSearchBtn);
+  SearchView.addClearHandler(controlClear);
   AddNoteBtnView.render();
   AddNoteBtnView.addClickHandler(controlAddNoteBtn);
+  renderMessage('No notes yet. Start by adding a note.');
+  load();
   AddNoteView.addCloseHandler(controlAddNoteClose);
   AddNoteView.addSaveHandler(controlFormSaveBtn);
   NoteView.addExpandHandler(controlNoteExpandBtn);
