@@ -34,9 +34,13 @@ body {
   padding-top: 3.2rem;
 }
 
-.container {
+main {
+  padding: 0 2rem;
   max-width: 150rem;
   margin: 0 auto;
+}
+
+.container {
   box-shadow: 0 2rem 6rem 0.5rem rgb(97 85 81 / 20%);
   border-radius: 9px;
   background-color: #fff;

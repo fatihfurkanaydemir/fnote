@@ -36,4 +36,32 @@
     padding: 0 1.2rem;
     text-align: center;
   }
+
+  main {
+    padding: 0 1rem;
+  }
+
+  .addnote-btn {
+    font-size: 2rem;
+  }
+
+  .btn-search {
+    font-size: 1.7rem;
+  }
+
+  .btn-clear {
+    font-size: 1.7rem;
+  }
+
+  .search-input {
+    font-size: 1.7rem;
+  }
+
+  .container {
+    gap: 1rem;
+  }
+
+  .search-form {
+    gap: 1.6rem;
+  }
 }
